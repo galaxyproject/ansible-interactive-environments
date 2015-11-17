@@ -132,6 +132,40 @@ None, but you can save a bit of setup time by having this role run in a play whe
 Example Playbook
 ----------------
 
+```yaml
+- hosts: galaxyservers
+  vars:
+    interactive_environments_install_method: copy
+    interactive_environments_plugins_path: "/srv/galaxy/interactive_environments/plugins"
+    interactive_environments_proxy_path: "/srv/galaxy/interactive_environments/proxy"
+    interactive_environments_config_files:
+      ipython:
+        file: ipython.ini
+        contents:
+          docker:
+            command: "docker -H tcp://docker.example.org:2376 --tlsverify {docker_args}"
+            image: "bgruening/docker-ipython-notebook:15.10.1"
+            galaxy_url: "https://docker.example.org"
+            docker_hostname: "docker.example.org"
+    interactive_environments_supervisor_conf_dir: "/srv/galaxy/supervisor/etc/supervisord.conf.d"
+    interactive_environments_nginx_conf_dir: "/srv/galaxy/nginx.conf.d"
+    galaxy_config:
+      "app:main":
+        interactive_environment_plugins_directory: "{{ interactive_environments_plugins_path }}"
+        dynamic_proxy_manage: "False"
+        dynamic_proxy_session_map: /srv/galaxy/var/gie_proxy_session_map.sqlite
+        dynamic_proxy_bind_port: 8880
+        dynamic_proxy_bind_ip: 0.0.0.0
+        dynamic_proxy_external_proxy: "True"
+        dynamic_proxy_prefix: gie_proxy
+        galaxy_infrastructure_url: https://galaxy.example.org
+  pre_tasks:
+    - name: Include Interactive Environments package installation tasks
+      include: roles/galaxyprojectdotorg.interactive_environments/tasks/install_dependencies.yml
+  roles:
+    - galaxyprojectdotorg.interactive_environments
+```
+
 License
 -------
 
