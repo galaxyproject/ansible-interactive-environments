@@ -5,6 +5,7 @@ galaxy_info:
   company: The Galaxy Project
   license: AFL v3.0
   min_ansible_version: 1.9
+  platforms:
   - name: Fedora
     versions:
     - 21
@@ -18,6 +19,6 @@ galaxy_info:
     versions:
     - jessie
   categories:
-    - development
-    - web
+  - development
+  - web
 dependencies: []
