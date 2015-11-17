@@ -11,7 +11,7 @@ interactive_environments_session_map: "{{ ie_gconf['app:main']['dynamic_proxy_se
 interactive_environments_plugins_version: "{{ galaxy_changeset_id | default('master') }}"
 interactive_environments_proxy_version: "{{ galaxy_changeset_id | default('master') }}"
 interactive_environments_galaxy_proxy_prefix: "{{ ie_gconf['app:main']['cookie_path'] | default('/') }}"
-interactive_environments_galaxy_repo: "{{ galaxy_repo | default('https://github.com/galaxyproject/galaxy.git') }}"
+interactive_environments_galaxy_repo: "{{ galaxy_git_repo | default('https://github.com/galaxyproject/galaxy.git') }}"
 interactive_environments_plugins_local_path: files/interactive_environments/plugins
 interactive_environments_proxy_local_path: files/interactive_environments/proxy
 interactive_environments_supervisor_program_name: gie_proxy
